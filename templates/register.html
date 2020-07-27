@@ -9,9 +9,8 @@
 	</style>
 </head>
 <body>
-	<h1>登录页面</h1>
-    <a href="/register">注册页面</a>
-	<form action="/check" method="post">
+	<h1>注册页面</h1>
+	<form action="/register" method="post">
         <!--3.前端加入令牌隐藏域(自动显示后端随机生成的cookie信息)-->
          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 		<div class="row">
@@ -22,6 +21,11 @@
 		</div>
 		<div class="row">
 			<label for="pwd">密码:</label>
+			<input type="text" name="pwd" id="pwd" class="bitian" />
+			<span class="msg"></span>
+		</div>
+        <div class="row">
+			<label for="pwd">确认密码:</label>
 			<input type="text" name="pwd" id="pwd" class="bitian" />
 			<span class="msg"></span>
 		</div>
