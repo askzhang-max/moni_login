@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>注册页面</h1>
-	<form action="/register" method="post">
+	<form action="#" method="post">
         <!--3.前端加入令牌隐藏域(自动显示后端随机生成的cookie信息)-->
          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 		<div class="row">
@@ -71,12 +71,32 @@
 					var uname = $(this).val().trim();//去掉左右空格
 					console.log(uname);
 					//做ajax
+
+
 					if(uname.length==0){
 						$(this).next('span').html('名字不能为空!')
 					}else{
+					    $.ajax({
+                               type: "GET",
+                               url: "ret_name",
+                               data: "uname="+uname,
+                               success: function(msg){
+                                 console.log( msg );
+                                 if(msg.errno=='200'){
+                                     $('.msg').eq(0).html('用户名正确！')
+                                 }else{
+                                     $('.msg').eq(0).html('用户名已存在！')
+                                 }
+                               },
+                               error: function(msg){
+                                 console.log( msg );
+                               }
+                            });
 						$(this).next('span').html('格式正确！')
 					}
 				}
+
+
 				//密码..确认密码...手机..邮箱.地址...
 				if($(this).is('#pwd')){
 					var pwd = $(this).val().trim();
@@ -94,8 +114,6 @@
 				//直接调用blur事件
 				$(this).triggerHandler('blur');
 			})
-			
-			
 			
 		})
 	</script>

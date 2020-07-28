@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,jsonify
 from flask_wtf.csrf import CSRFProtect
 
 
@@ -14,6 +14,7 @@ def index():
 
 @app.route('/register')
 def register():
+
     return render_template('register.html')
 
 @app.route("/check",methods=["POST"])
@@ -26,6 +27,13 @@ def login():
     else:
         return render_template('login.html',errmsg='用户名或密码错误')
 
+@app.route('/ret_name')
+def ret_name():
+    uname = request.args.get('uname')
+    if uname == 'admin':
+        return jsonify(errno='500',errmsg='false')
+    else:
+        return jsonify(errno='200',errmsg='ok')
 
 
 
